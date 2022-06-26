@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <title>{% block title %}Онтология Федора фета{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+<h1> Онтология Федора Фета</h1>
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <a href="/article">Произведения</a>
+    <a href="/author">Авторы</a>
+    <a href="/genre">Жанры</a>
+    <a href="/issue">Издательства</a>
+    <a href="/logout">Выйти</a><br>
+    {% block body %}{% endblock %}
+{% else %}
+    <a href="/register">register</a>
+    <form action="{{ path('app_login') }}" method="post">
+        <label for="username">Email:</label>
+        <input type="text" id="username" name="_username" >
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="_password"/>
+        {# If you want to control the URL the user is redirected to on success
+        <input type="hidden" name="_target_path" value="/account"/> #}
+        <br>
+        <button type="submit">Войти</button>
+    </form>
+
+{% endif %}
+</body>
+</html>
+<style>
+    .table {
+       
+        margin-bottom: 20px;
+        border: 1px solid #dddddd;
+        border-collapse: collapse;
+    }
+    .table thead tr {
+        font-weight: bold;
+        padding: 5px;
+        background: #efefef;
+        border: 1px solid #dddddd;
+    }
+
+    .table td {
+        padding: 12px 30px;
+    }
+
+</style>
